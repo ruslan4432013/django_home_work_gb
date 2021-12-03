@@ -37,7 +37,7 @@ def products(request):
 
 def contact(request):
     content = {
-        'title': 'Продукты',
+        'title': 'Контакты',
         'links_main_menu': links_main_menu
     }
     return render(request, 'mainapp/contact.html', content)
