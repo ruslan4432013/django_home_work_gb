@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from .models import Product
 # Create your views here.
 
 links_menu = [
@@ -27,10 +27,12 @@ def index(request):
 
 
 def products(request):
+    product = Product.object.all()
     content = {
         'title': 'Продукты',
         'links_menu': links_menu,
-        'links_main_menu':  links_main_menu
+        'links_main_menu':  links_main_menu,
+        'products': product
     }
     return render(request, 'mainapp/products.html', content)
 
