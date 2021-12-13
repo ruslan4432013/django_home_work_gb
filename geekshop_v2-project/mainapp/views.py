@@ -1,9 +1,11 @@
 from django.shortcuts import render, get_object_or_404
+
+from basketapp.models import Basket
 from .models import Product, ProductCategory
 
 menu = [
-    {'href': 'main', 'name': 'главная'},
-    {'href': 'products:main', 'name': 'продукты'},
+    {'href': 'index', 'name': 'главная'},
+    {'href': 'products:index', 'name': 'продукты'},
     {'href': 'contact', 'name': 'контакты'},
 ]
 
@@ -12,9 +14,13 @@ menu = [
 
 def products(request, pk=None):
     print(pk)
-
-    title = 'продукты'
+    title = "Продукты"
     links_menu = ProductCategory.objects.all()
+
+    basket = []
+
+    if request.user.is_authenticated:
+        basket = Basket.objects.filter(user=request.user)
 
     if pk is not None:
         if pk == 0:
@@ -25,14 +31,17 @@ def products(request, pk=None):
             products = Product.objects.filter(category__pk=pk).order_by('price')
 
         content = {
-            'title': title,
-            'links_menu': links_menu,
-            'category': category,
-            'products': products,
+
+            "title": title,
+            "links_menu": links_menu,
+            "category": category,
+            "products": products,
+            "menu": menu,
+            "basket": basket,
+            'item_count': str(len(basket)),
         }
 
-        return render(request, 'mainapp/products_list.html', content)
-
+        return render(request, "mainapp/products_list.html", content)
     same_products = Product.objects.all()[3:5]
 
     content = {
