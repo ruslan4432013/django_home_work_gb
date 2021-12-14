@@ -7,7 +7,6 @@
               {% endif %}">
             {{ link.name }}
         </a>
-
     </li>
     {% endfor %}
     {% if user.is_authenticated %}
@@ -27,16 +26,16 @@
     </li>
 </ul>
 
+{% if basket %}
 <li style="list-style: none">
-    <a href="{% url 'basket:view' %}" class="basket">
-        <i class="material-icons">
+    <a class="basket" href="{% url 'basket:view' %}">
+        <i class="material-icons cart-icon">
             shopping_cart
         </i>
-        {% if basket %}({{ basket|length }}){% endif %}
-
+        ({{ basket|length }})
     </a>
 </li>
-
+{% endif %}
 
 
 

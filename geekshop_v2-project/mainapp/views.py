@@ -38,7 +38,6 @@ def products(request, pk=None):
             "products": products,
             "menu": menu,
             "basket": basket,
-            'item_count': str(len(basket)),
         }
 
         return render(request, "mainapp/products_list.html", content)
@@ -47,16 +46,22 @@ def products(request, pk=None):
     content = {
         'title': title,
         'links_menu': links_menu,
-        'same_products': same_products
+        'same_products': same_products,
+        'menu': menu,
+        "basket": basket,
     }
 
     return render(request, 'mainapp/products.html', content)
 
 
 def contact(request):
+    basket = []
+    if request.user.is_authenticated:
+        basket = Basket.objects.filter(user=request.user)
     content = {
         'title': 'Контакты',
         'menu': menu,
+        'basket': basket,
     }
     return render(request, 'mainapp/contact.html', content)
 
@@ -64,5 +69,12 @@ def contact(request):
 def main(request):
     title = 'главная'
     products = Product.objects.all()[:4]
-    content = {'title': title, 'products': products, 'menu': menu}
+    basket = []
+    if request.user.is_authenticated:
+        basket = Basket.objects.filter(user=request.user)
+
+    content = {'title': title,
+               'products': products,
+               'menu': menu,
+               'basket': basket}
     return render(request, 'mainapp/index.html', content)
