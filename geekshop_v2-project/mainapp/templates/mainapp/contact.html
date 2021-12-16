@@ -1,12 +1,12 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
 {% block title %}
-	{{ title|title}}
+{{ title|title}}
 {% endblock %}
-    {% block css %}
-	<link rel="stylesheet" type="text/css" href="{% static  'style.css' %}">
-	<link rel="stylesheet" href="{% static 'fonts/font-awesome/css/font-awesome.css' %}">
-    {% endblock %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static  'style.css' %}">
+<link rel="stylesheet" href="{% static 'fonts/font-awesome/css/font-awesome.css' %}">
+{% endblock %}
 </head>
 <body>
 <div class="container">

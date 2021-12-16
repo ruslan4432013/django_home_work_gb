@@ -1,7 +1,7 @@
-"""geekshop URL Configuration
+"""geekshop_v2 URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.2/topics/http/urls/
+    https://docs.djangoproject.com/en/4.0/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -14,19 +14,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from mainapp.views import index, products, contact, context
+from django.urls import path, include
+from mainapp.views import index, products, contact
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('home', index, name='index'),
-    path('products', products, name='products'),
     path('contact', contact, name='contact'),
-    path('admin/', admin.site.urls),
-    path('test', context),
+    path('products/', include(('mainapp.urls', 'products'), namespace='products')),
     path('products_all', products, name='products_all'),
     path('products_home', products, name='products_home'),
     path('products_office', products, name='products_office'),
     path('products_modern', products, name='products_modern'),
     path('products_classic', products, name='products_classic'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
