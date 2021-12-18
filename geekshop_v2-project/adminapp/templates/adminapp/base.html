@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Админка</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'style_text.css' %}">
+</head>
+<body>
+    <div class="admin_container">
+        <div class="h2 text-center head">
+            Админка
+        </div>
+        <div class="admin_menu">
+            {% include 'adminapp/includes/inc_menu.html' %}
+        </div>
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
