@@ -7,7 +7,9 @@ from mainapp.models import Product
 
 
 def basket(request):
-    pass
+    content = {}
+    return render(request, 'basketapp/basket.html', content)
+
 
 def basket_add(request, pk):
     product = get_object_or_404(Product, pk=pk)
@@ -17,10 +19,12 @@ def basket_add(request, pk):
     if not basket:
         basket = Basket(user=request.user, product=product)
 
-    basket.quantity +=1
+    basket.quantity += 1
     basket.save()
 
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER')) # Возвращает на ту же страницу, где находится
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  # Возвращает на ту же страницу, где находится
+
 
 def basket_remove(request, pk):
-    pass
+    content = {}
+    return render(request, 'basketapp/basket.html', content)
