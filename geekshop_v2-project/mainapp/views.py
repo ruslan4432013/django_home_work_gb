@@ -2,17 +2,13 @@ from django.shortcuts import render
 from .models import Product, ProductCategory
 
 menu = [
-    {'href': 'index', 'name': 'главная'},
-    {'href': 'products:index', 'name': 'продукты'},
+    {'href': 'main', 'name': 'главная'},
+    {'href': 'products:main', 'name': 'продукты'},
     {'href': 'contact', 'name': 'контакты'},
 ]
 
 
 # Create your views here.
-def index(request):
-    context = {'title': 'Магазин', 'menu': menu}
-    return render(request, 'mainapp/index.html', context)
-
 
 def products(request, pk=None):
     title = "Продукты"
