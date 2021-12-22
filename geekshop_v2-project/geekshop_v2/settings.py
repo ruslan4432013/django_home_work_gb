@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mainapp.apps.MainappConfig',
-    'authapp.apps.AuthappConfig'
+    'authapp.apps.AuthappConfig',
+    'basketapp.apps.BasketappConfig',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +126,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'authapp.ShopUser'
 
+LOGIN_URL = '/auth/login/'
