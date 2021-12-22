@@ -24,18 +24,20 @@
         <a href="{% url 'auth:register' %}">Регистрация</a>
         {% endif %}
     </li>
+    {% if basket %}
+    <li>
+        <a href="{% url 'basket:view' %}">
+            {{ basket.0.total_cost|floatformat:0 }} руб
+
+            ({{ basket.0.total_quantity }} шт)
+        </a>
+    </li>
+    {% endif %}
 </ul>
 
-{% if basket %}
-<li style="list-style: none">
-    <a class="basket" href="{% url 'basket:view' %}">
-        <i class="material-icons cart-icon">
-            shopping_cart
-        </i>
-        ({{ basket|length }})
-    </a>
-</li>
-{% endif %}
+
+
+
 
 
 
