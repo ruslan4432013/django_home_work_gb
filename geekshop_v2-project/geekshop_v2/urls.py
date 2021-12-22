@@ -19,19 +19,14 @@ from mainapp.views import main, products, contact
 from django.conf import settings
 from django.conf.urls.static import static
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', main, name='main'),
-    path('home', main, name='main'),
-    path('contact', contact, name='contact'),
-    path('products/', include(('mainapp.urls', 'products'), namespace='products')),
+    path('', main, name='index'),
+    path('products/', include('mainapp.urls', namespace='products')),
     path('auth/', include('authapp.urls', namespace='auth')),
-    path('products_all', products, name='products_all'),
-    path('products_home', products, name='products_home'),
-    path('products_office', products, name='products_office'),
-    path('products_modern', products, name='products_modern'),
-    path('products_classic', products, name='products_classic'),
+    path('contact/', contact, name='contact'),
+    path('basket/', include('basketapp.urls', namespace='basket')),
+
 ]
 
 if settings.DEBUG:
