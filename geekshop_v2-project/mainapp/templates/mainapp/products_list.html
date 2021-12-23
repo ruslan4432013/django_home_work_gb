@@ -2,44 +2,62 @@
 {% load static %}
 
 {% block menu %}
-  <div class="hero-white">
+<div class="hero-white">
     <div class="header clearfix">
-      {% include 'includes/inc_main_menu.html' %}
+        {% include 'includes/inc_main_menu.html' %}
     </div>
-  </div>
+</div>
 {% endblock %}
 
 {% block content %}
-  <div class="details">
+<div class="details">
     <div class="links clearfix">
-      {% include 'includes/inc_categories_menu.html' %}
+        {% include 'includes/inc_categories_menu.html' %}
     </div>
 
     <div class="related">
-      <div class="title clearfix">
-        <h2>
-          Категория: "{{ category.name|title }}"
-        </h2>
-      </div>
-      <div class="related-products clearfix">
-
-  {% for product in products %}
-    <div class="block">
-      <a href="{% url 'products:product' product.pk %}">
-        <img src="/media/{{ product.image }}" alt="{{ product.short_desc }}">
-        <div class="text">
-          <img src="{% static 'img/icon-hover.png' %}" alt="hover">
-          <h4>{{ product.name }}</h4>
-          <p>{{ product.description }} </p>
+        <div class="title clearfix">
+            <h2>
+                Категория: "{{ category.name|title }}"
+            </h2>
         </div>
-      </a>
-    </div>
-  {% endfor %}
 
-      </div>
+        <div class="paginator">
+            {% if products.has_previous %}
+            <a href="{% url 'products:page' category.pk products.previous_page_number %}">
+                <
+            </a>
+            {% endif %}
+            <span class="current">
+            страница {{ products.number }} из
+            {{ products.paginator.num_pages }}
+          </span>
+            {% if products.has_next %}
+            <a href="{% url 'products:page' category.pk products.next_page_number %}">
+                >
+            </a>
+            {% endif %}
+        </div>
     </div>
-  </div>
+    <div class="category-products clearfix">
 
-  <div class="clr"></div>
+        {% for product in products %}
+        <div class="block">
+            <a href="{% url 'products:product' product.pk %}">
+                <img src="/media/{{ product.image }}" alt="{{ product.short_desc }}">
+                <div class="text">
+                    <img src="{% static 'img/icon-hover.png' %}" alt="hover">
+                    <h4>{{ product.name }}</h4>
+                    <p>{{ product.description }} </p>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+</div>
+
+<div class="clr"></div>
 
 {% endblock %}

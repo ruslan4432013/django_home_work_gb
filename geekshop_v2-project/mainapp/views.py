@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 import random
 from basketapp.models import Basket
 from .models import Product, ProductCategory
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 menu = [
     {'href': 'index', 'name': 'главная'},
@@ -17,19 +18,20 @@ def get_basket(user):
     else:
         return []
 
+
 def get_hot_product():
     products = Product.objects.all()
     return random.sample(list(products), 1)[0]
+
 
 def get_same_products(hot_product):
     same_products = Product.objects.filter(category=hot_product.category).exclude(pk=hot_product.pk)[:3]
     return same_products
 
 
-
-def products(request, pk=None):
+def products(request, pk=None, page=1):
     title = "Продукты"
-    links_menu = ProductCategory.objects.all()
+    links_menu = ProductCategory.objects.filter(is_active=True)
 
     basket = []
 
@@ -38,20 +40,30 @@ def products(request, pk=None):
 
     if pk is not None:
         if pk == 0:
-            products = Product.objects.all().order_by('price')
-            category = {'name': 'все'}
+            products = Product.objects.filter(is_active=True, category__is_active=True).order_by('price')
+            category = {'name': 'все', 'pk': 0}
         else:
             category = get_object_or_404(ProductCategory, pk=pk)
-            products = Product.objects.filter(category__pk=pk).order_by('price')
+            products = Product.objects.filter(category__pk=pk, is_active=True, category__is_active=True).order_by(
+                'price')
+
+        paginator = Paginator(products, 2)
+        try:
+            products_paginator = paginator.page(page)
+        except PageNotAnInteger:
+            products_paginator = paginator.page(1)
+        except EmptyPage:
+            products_paginator = paginator.page(paginator.num_pages)
 
         content = {
 
             "title": title,
             "links_menu": links_menu,
             "category": category,
-            "products": products,
+            "products": products_paginator,
             "menu": menu,
             "basket": basket,
+
         }
 
         return render(request, "mainapp/products_list.html", content)
@@ -95,6 +107,7 @@ def main(request):
                'menu': menu,
                'basket': basket}
     return render(request, 'mainapp/index.html', content)
+
 
 def product(request, pk):
     title = 'продукты'

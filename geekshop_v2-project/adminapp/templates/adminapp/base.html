@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load my_tags %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'style_text.css' %}">
 </head>
 <body>
+    <h1>Сегодня: {{ title|get_current_day }}</h1>
     <div class="admin_container">
         <div class="h2 text-center head">
             Админка
