@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
 from django.forms import HiddenInput, ValidationError
-
+import random
+import hashlib
 from .models import ShopUser
 
 
@@ -32,11 +33,15 @@ class ShopUserRegisterForm(UserCreationForm):
             raise ValidationError('Вы слишком молоды!')
         return data
 
-    def clean_email(self):
-        email_valid = self.cleaned_data['email']
-        if email_valid.split('@')[1] != 'gmail.com':
-            raise ValidationError('Ваша почта не от гугл')
-        return email_valid
+    def save(self):
+        user = super(ShopUserRegisterForm, self).save()
+
+        user.is_active = False
+        salt = hashlib.sha1(str(random.random()).encode('utf8')).hexdigest()[:6]
+        user.activation_key = hashlib.sha1((user.email + salt).encode('utf8')).hexdigest()
+        user.save()
+
+        return user
 
 
 class ShopUserEditForm(UserChangeForm):
