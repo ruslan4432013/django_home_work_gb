@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-=m=%!onpf^ml-^&6u=!-!g5^$d6pc_z6^n%qmy&1a5ov0*02)!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'social_django',
+    'bootstrap5',
 
     'mainapp.apps.MainappConfig',
     'authapp.apps.AuthappConfig',
