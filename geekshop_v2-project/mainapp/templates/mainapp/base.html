@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load bootstrap5 %}
 <html>
 <head>
     <meta charset="utf-8">
@@ -13,10 +14,12 @@
     <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/font-awesome.css' %}">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Material+Icons">
+    {% bootstrap_css %}
     {% endblock %}
 
     {% block js %}
-
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
     {% endblock %}
 </head>
 <body>
