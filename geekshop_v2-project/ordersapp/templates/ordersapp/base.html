@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% load static %}
+{% load bootstrap5 %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>
+        {% block title %}
+        {{ title|title }}
+        {% endblock %}
+    </title>
+    {% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static  'style.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Material+Icons">
+    {% bootstrap_css %}
+    {% endblock %}
+    {% block js %}
+    {% bootstrap_javascript %}
+    <script src="{% static 'js/orders_scripts.js' %}"></script>
+    {% endblock %}
+</head>
+<body>
+<div class="order_container">
+    {% block content %}
+
+    {% endblock %}
+
+</div>
+</body>
+</html>
