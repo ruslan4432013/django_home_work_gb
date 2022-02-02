@@ -39,6 +39,7 @@ INSTALLED_APPS = [
 
     'social_django',
     'bootstrap5',
+    'django_extensions',
 
     'mainapp.apps.MainappConfig',
     'authapp.apps.AuthappConfig',
