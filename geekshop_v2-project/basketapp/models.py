@@ -4,11 +4,12 @@ from mainapp.models import Product
 
 
 class BasketQuerySet(models.QuerySet):
+
     def delete(self, *args, **kwargs):
         for object in self:
             object.product.quantity += object.quantity
             object.product.save()
-            super(BasketQuerySet, self).delete(*args, **kwargs)
+        super(BasketQuerySet, self).delete(*args, **kwargs)
 
 
 class Basket(models.Model):
@@ -25,28 +26,27 @@ class Basket(models.Model):
     @property
     def total_quantity(self):
         _items = Basket.objects.filter(user=self.user)
-        _totalquantity = sum(list(map(lambda x: x.quantity, _items)))
-        return _totalquantity
+        _total_quantity = sum(list(map(lambda x: x.quantity, _items)))
+        return _total_quantity
 
     @property
     def total_cost(self):
         _items = Basket.objects.filter(user=self.user)
-        _totalcost = sum(list(map(lambda x: x.product_cost, _items)))
-        return _totalcost
+        _total_cost = sum(list(map(lambda x: x.product_cost, _items)))
+        return _total_cost
 
     @classmethod
-    def get_items(cls, user):
+    def get_item(cls, user):
         return Basket.objects.filter(user=user)
 
     def delete(self, *args, **kwargs):
         self.product.quantity += self.quantity
         self.product.save()
-        super(self.__class__, self).delete(*args, **kwargs)
+        return super(self.__class__, self).delete(*args, **kwargs)
 
     def save(self, *args, **kwargs):
         if self.pk:
-            self.product.quantity -= self.quantity - \
-                                     self.__class__.get_item(self.pk).quantity
+            self.product.quantity -= self.quantity - self.__class__.get_item(self.pk).quantity
         else:
             self.product.quantity -= self.quantity
         self.product.save()
