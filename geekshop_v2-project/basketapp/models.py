@@ -41,6 +41,10 @@ class Basket(models.Model):
     def get_item(cls, user):
         return Basket.objects.filter(user=user)
 
+    @classmethod
+    def get_product(cls, user, product):
+        return Basket.objects.filter(user=user, product=product)
+
     # def delete(self, *args, **kwargs):
     #     self.product.quantity += self.quantity
     #     self.product.save()

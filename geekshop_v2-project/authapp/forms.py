@@ -28,13 +28,9 @@ class ShopUserRegisterForm(UserCreationForm):
             field.widget.attrs['class'] = 'form-control'
             field.help_text = ''
 
-    def clean_age(self):
-        data = self.cleaned_data['age']
-        if data < 18:
-            raise ValidationError('Вы слишком молоды!')
-        return data
 
-    def save(self):
+
+    def save(self, commit=True):
         user = super(ShopUserRegisterForm, self).save()
 
         user.is_active = False
@@ -43,6 +39,12 @@ class ShopUserRegisterForm(UserCreationForm):
         user.save()
 
         return user
+
+    def clean_age(self):
+        data = self.cleaned_data['age']
+        if data < 18:
+            raise ValidationError('Вы слишком молоды!')
+        return data
 
 
 class ShopUserEditForm(UserChangeForm):

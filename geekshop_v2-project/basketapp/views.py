@@ -2,11 +2,12 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-# Create your views here.
+from django.db.models import F
 from basketapp.models import Basket
 from mainapp.models import Product
 from django.template.loader import render_to_string
 from django.http import JsonResponse
+
 
 @login_required
 def basket(request):
@@ -20,11 +21,11 @@ def basket(request):
 
     return render(request, 'basketapp/basket.html', content)
 
+
 @login_required
 def basket_add(request, pk):
-    if 'login' in request.META.get('HTTP_REFERER'):
-        return HttpResponseRedirect(reverse('products:product', args=[pk]))
-
+    if "login" in request.META.get("HTTP_REFERER"):
+        return HttpResponseRedirect(reverse("products:product", args=[pk]))
     product = get_object_or_404(Product, pk=pk)
     basket = Basket.objects.filter(user=request.user, product=product).first()
 
@@ -34,7 +35,7 @@ def basket_add(request, pk):
     basket.quantity += 1
     basket.save()
 
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
 
 @login_required

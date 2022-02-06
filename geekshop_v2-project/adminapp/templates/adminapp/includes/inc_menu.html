@@ -1,26 +1,18 @@
-<ul class="menu">
-    <li>
-        <a href="{% url 'index' %}">
-            на сайт
-        </a>
-    </li>
-    <li>
-        <a href="{% url 'admin:users' %}"
-           class="{% if request.resolver_match.url_name == 'users' %}
+<div class="list-group list-group-horizontal mb-3 align-items-center">
+
+    <a class="list-group-item list-group-item-action list-group-item-primary" href="{% url 'index' %}">На сайт</a>
+    <a href="{% url 'admin:users' %}"
+       class="list-group-item list-group-item-action list-group-item-primary {% if request.resolver_match.url_name == 'users' %}active{% endif %}">
+        Пользователи
+    </a>
+    <a href="{% url 'admin:categories' %}"
+       class="list-group-item list-group-item-action list-group-item-primary {% if request.resolver_match.url_name == 'categories' or category.name %}
            active
            {% endif %}">
-            пользователи
-        </a>
-    </li>
-    <li>
-        <a href="{% url 'admin:categories' %}"
-           class="{% if request.resolver_match.url_name == 'categories' or category.name %}
-           active
-           {% endif %}">
-            категории
-            {% if category %}
-            :<span>{{ category.name }}</span>
-            {% endif %}
-        </a>
-    </li>
-</ul>
+        Категории
+        {% if category %}
+        :<span>{{ category.name }}</span>
+        {% endif %}
+    </a>
+
+</div>

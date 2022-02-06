@@ -200,5 +200,5 @@ CACHES = {
     }
 }
 
-LOW_CACHE = True
+LOW_CACHE = False
 
