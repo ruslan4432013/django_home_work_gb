@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 {% load static %}
 {% load my_tags %}
+{% load bootstrap5 %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Админка</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-    <link rel="stylesheet" href="{% static 'style_text.css' %}">
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
 </head>
 <body>
+<div class="container">
     <h1>Сегодня: {{ title|get_current_day }}</h1>
     <div class="admin_container">
         <div class="h2 text-center head">
@@ -20,5 +22,6 @@
         {% block content %}
         {% endblock %}
     </div>
+</div>
 </body>
 </html>

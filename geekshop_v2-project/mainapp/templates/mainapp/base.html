@@ -11,9 +11,6 @@
     </title>
     {% block css %}
     <link rel="stylesheet" type="text/css" href="{% static  'style.css' %}">
-    <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/font-awesome.css' %}">
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Material+Icons">
     {% bootstrap_css %}
     {% endblock %}
 
@@ -23,7 +20,7 @@
     {% endblock %}
 </head>
 <body>
-<div class="container">
+
     {% block menu %}
 
     {% endblock %}
@@ -58,6 +55,6 @@
         </div>
         <p class="small">Положения &amp; Условия / Конфиденциальность &amp; Cookies</p>
     </div>
-</div>
+
 </body>
 </html>

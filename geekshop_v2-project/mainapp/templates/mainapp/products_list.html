@@ -44,9 +44,9 @@
         {% for product in products %}
         <div class="block">
             <a href="{% url 'products:product' product.pk %}">
-                <img src="/media/{{ product.image }}" alt="{{ product.short_desc }}">
+                <img height="100" width="100" src="/media/{{ product.image }}" alt="{{ product.short_desc }}">
                 <div class="text">
-                    <img src="{% static 'img/icon-hover.png' %}" alt="hover">
+                    <img height="100" width="100" src="{% static 'img/icon-hover.png' %}" alt="hover">
                     <h4>{{ product.name }}</h4>
                     <p>{{ product.description }} </p>
                 </div>
@@ -56,7 +56,7 @@
 
     </div>
 </div>
-</div>
+
 
 <div class="clr"></div>
 

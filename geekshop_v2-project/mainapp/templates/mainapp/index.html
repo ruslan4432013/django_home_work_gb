@@ -1,10 +1,10 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
 
-<body>
+
 {% block menu %}
 
-<div class="container">
+
     <div class="slider">
         <div class="header clearfix">
             <a href="/" class="logo"></a>
@@ -34,7 +34,7 @@
         <div class="tab-content">
             {% for product in products %}
             <div class="block">
-                <a href="#"><img src="/media/{{ product.image }}" alt="{{ product.shot_of_desc }}">
+                <a href="#"><img class="img-thumbnail" src="/media/{{ product.image }}" alt="{{ product.shot_of_desc }}">
                     <div class="text">
                         <img src="/static/img/icon-hover.png" alt="">
                         <h3>{{ product.category.name }}</h3>
@@ -48,7 +48,5 @@
     </div>
 
     <div class="clr"></div>
-
-</div>
 {% endblock %}
-</body>
+
